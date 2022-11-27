@@ -146,22 +146,8 @@
     (unless version
       ;; If no lockfile present, use latest version.
       (setq version :gamma))
-    (with-current-buffer
-        (url-retrieve-synchronously
-         (format
-          (concat "https://raw.githubusercontent.com/"
-                  "radian-software/straight.el/install/%s/straight.el")
-          (substring (symbol-name version) 1))
-         'silent 'inhibit-cookies)
-      ;; In case of 404, that means the version identifier is unknown.
-      ;; This will happen when I screw up, or if the user forks
-      ;; straight.el and changes the version identifier, but forgets
-      ;; to push a corresponding branch and override the repository
-      ;; here.
-      (unless (equal url-http-response-status 200)
-        (error "Unknown recipe version: %S" version))
-      ;; Delete the evil HTTP headers.
-      (delete-region (point-min) url-http-end-of-headers)
+    (with-temp-buffer
+      (insert-file "~/git/Downloads/straight.el/straight.el")
       ;; All of the following code is actually executed by the child
       ;; Emacs.
       (goto-char (point-min))
