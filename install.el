@@ -147,7 +147,7 @@
       ;; If no lockfile present, use latest version.
       (setq version :gamma))
     (with-temp-buffer
-      (insert-file "~/git/Downloads/straight.el/straight.el")
+      (insert-file-contents "~/git/Downloads/straight.el/straight.el")
       ;; All of the following code is actually executed by the child
       ;; Emacs.
       (goto-char (point-min))
